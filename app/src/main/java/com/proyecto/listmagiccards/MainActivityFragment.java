@@ -1,9 +1,9 @@
 package com.proyecto.listmagiccards;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -89,12 +89,24 @@ public class MainActivityFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    //En este metodo colocaremos la accion que hara el refresh que sera hacer una llamada a la api en segundo plano.
+    //En este metodo colocaremos la accion que hara el refresh que sera hacer una llamada a la api en segundo plano con el Asynctask.
     private void refresh() {
 
-        LlalamdaApi api = new LlalamdaApi();
-        String result = api.get100Cards();
-        Log.d("DEBUG", result);
+        refreshBackground refresh = new refreshBackground();
+        refresh.execute();
+
     }
 
+    private class refreshBackground extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            LlamadaApi api = new LlamadaApi();
+            String result = api.get100Cards();
+
+            //Este log lo podemos dejar si queremos ver el resultados por consola.
+            //Log.d("DEBUG", result);
+
+            return null;
+        }
+    }
 }

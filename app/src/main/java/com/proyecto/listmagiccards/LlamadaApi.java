@@ -8,7 +8,7 @@ import java.io.IOException;
  * Created by alex on 20/10/2016.
  */
 
-public class LlalamdaApi {
+public class LlamadaApi {
         private final String BASE_URL = "https://api.magicthegathering.io/v1/";
 
         String get100Cards() {
