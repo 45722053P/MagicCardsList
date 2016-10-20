@@ -3,6 +3,7 @@ package com.proyecto.listmagiccards;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -90,6 +91,10 @@ public class MainActivityFragment extends Fragment {
 
     //En este metodo colocaremos la accion que hara el refresh que sera hacer una llamada a la api en segundo plano.
     private void refresh() {
+
+        LlalamdaApi api = new LlalamdaApi();
+        String result = api.get100Cards();
+        Log.d("DEBUG", result);
     }
 
 }
