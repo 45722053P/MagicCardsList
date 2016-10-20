@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -97,16 +98,24 @@ public class MainActivityFragment extends Fragment {
 
     }
 
-    private class refreshBackground extends AsyncTask<Void, Void, Void> {
+    private class refreshBackground extends AsyncTask<Void, Void, ArrayList<Cards>> {
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected ArrayList<Cards> doInBackground(Void... voids) {
             LlamadaApi api = new LlamadaApi();
-            String result = api.get100Cards();
 
-            //Este log lo podemos dejar si queremos ver el resultados por consola.
-            //Log.d("DEBUG", result);
+            ArrayList<Cards> result = api.get100Cards();
 
-            return null;
+            Log.d("DEBUG", result.toString());
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Cards> cartas) {
+            adapter.clear();
+            for (Cards carta : cartas) {
+                adapter.add(carta.getName());
+            }
         }
     }
 }
