@@ -3,6 +3,8 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_settings">Settings</string>
     <string name="Refresh">Refresh</string>
+    <string name="rarity">Rareza</string>
+    <string name="color">Color</string>
 
     <!-- Strings related to Settings -->
 
@@ -14,22 +16,32 @@
         based on your message history
     </string>
 
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
+
 
     <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
     <string-array name="pref_example_list_titles">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
+    <!--Estos nombres seras los que se van a ver en la aplicación -->
+    <item>Tierra Basica</item>
+    <item>Comun</item>
+    <item>Infrecuente</item>
+    <item>Rara</item>
+    <item>Rara Mitica</item>
+    <item>Especial</item>
+
     </string-array>
 
-    <!-- Example settings for Data & Sync -->
+    <string-array name="pref_example_list_values">
+        <!--Estos nombres seras los que vamos a utilizar para enlazar etc.... -->
+
+        <item>Basic Land</item>
+        <item>Common</item>
+        <item>Uncommon</item>
+        <item>-Rare</item>
+        <item>-Mythic Rare</item>
+        <item>Special</item>
+    </string-array>
+
+<!-- Example settings for Data & Sync -->
     <string name="pref_header_data_sync">Data &amp; sync</string>
 
     <string name="pref_title_sync_frequency">Sync frequency</string>
