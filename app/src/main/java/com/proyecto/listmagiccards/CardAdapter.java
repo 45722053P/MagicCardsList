@@ -20,7 +20,7 @@ import java.util.List;
 
 public class CardAdapter extends ArrayAdapter<Cards>{
 
-    TextView nombre,color,tipo,rareza;
+    TextView nombre,tipo;
     ImageView imageCard;
 
 
@@ -50,8 +50,6 @@ public class CardAdapter extends ArrayAdapter<Cards>{
         imageCard = (ImageView)convertView.findViewById(R.id.fotoCard);
         nombre = (TextView)convertView.findViewById(R.id.nameCard);
         tipo = (TextView)convertView.findViewById(R.id.typeCard);
-        rareza = (TextView)convertView.findViewById(R.id.rarityCard);
-        color = (TextView)convertView.findViewById(R.id.colorCard);
 
 
         //Colocamos los datos del JSON en los textView.
@@ -59,8 +57,6 @@ public class CardAdapter extends ArrayAdapter<Cards>{
         Glide.with(getContext()).load(card.getImageUrl()).into(imageCard);
         nombre.setText(card.getName());
         tipo.setText(card.getType());
-        rareza.setText(card.getRarity());
-        color.setText(card.getColor());
 
 
         return convertView;
