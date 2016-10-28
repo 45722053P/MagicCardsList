@@ -100,21 +100,21 @@ public class MainActivityFragment extends Fragment {
     private class refreshBackground extends AsyncTask<Void, Void, ArrayList<Cards>> {
         @Override
         protected ArrayList<Cards> doInBackground(Void... voids) {
-//
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-            String color = preferences.getString("color",null);
-            String rareza = preferences.getString("rareza",null);
+//            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 //
+//            String color = preferences.getString("color",null);
+//            String rareza = preferences.getString("rareza",null);
+
             LlamadaApi api = new LlamadaApi();
 
-            ArrayList<Cards> result = null;
+            ArrayList<Cards> result = api.getCards();
 
-            if(color.equals("color")){
-
-                result = api.getColour(color);
-
-            }
+//            if(color.equals("color")){
+//
+//                result = api.getColour(color);
+//
+//            }
 
 
 

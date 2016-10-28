@@ -41,6 +41,16 @@ public class LlamadaApi {
         return llamada(url);
     }
 
+    ArrayList<Cards> getCards() {
+        Uri builtUri = Uri.parse(BASE_URL)
+                .buildUpon()
+                .appendPath("cards")
+                .build();
+        String url = builtUri.toString();
+
+        return llamada(url);
+    }
+
 
 
     @Nullable
