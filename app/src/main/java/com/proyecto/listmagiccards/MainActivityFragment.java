@@ -101,21 +101,17 @@ public class MainActivityFragment extends Fragment {
         @Override
         protected ArrayList<Cards> doInBackground(Void... voids) {
 
-//            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-//
-//            String color = preferences.getString("color",null);
-//            String rareza = preferences.getString("rareza",null);
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+            String color = preferences.getString("color",null);
+            String rareza = preferences.getString("rareza","common");
+
 
             LlamadaApi api = new LlamadaApi();
 
-            ArrayList<Cards> result = api.getCards();
+            ArrayList<Cards> result = null;
 
-//            if(color.equals("color")){
-//
-//                result = api.getColour(color);
-//
-//            }
-
+            result = api.getRarity(rareza);
 
 
             Log.d("DEBUG", result.toString());

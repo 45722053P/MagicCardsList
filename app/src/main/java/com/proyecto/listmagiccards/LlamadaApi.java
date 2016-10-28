@@ -77,9 +77,14 @@ public class LlamadaApi {
 
                 Cards card = new Cards();
                 card.setName(jsonCards.getString("name"));
-                //card.setColor(jsonCards.getString("colors"));
+
+                if(jsonCards.getString("colors").equals("")) {
+                    card.setColor("");
+                }
+
+                card.setColor(jsonCards.getString("colors"));
                 card.setType(jsonCards.getString("type"));
-                //card.setRarity(jsonCards.getString("rarity"));
+                card.setRarity(jsonCards.getString("rarity"));
                 card.setImageUrl(jsonCards.getString("imageUrl"));
                 cartas.add(card);
             }
