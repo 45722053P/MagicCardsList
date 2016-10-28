@@ -1,7 +1,9 @@
 package com.proyecto.listmagiccards;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -22,8 +24,8 @@ import java.util.Arrays;
  */
 public class MainActivityFragment extends Fragment {
 
-    private ArrayList<String> items;
-    private ArrayAdapter<String> adapter;
+    private ArrayList<Cards> items;
+    private CardAdapter adapter;
 
 
     public MainActivityFragment() {
@@ -44,26 +46,15 @@ public class MainActivityFragment extends Fragment {
 
         ListView listaCartas = (ListView) FragmentView.findViewById(R.id.listCads);
 
-        String[] data = {
-                "Ejemplos",
-                "Ejemplos",
-                "Ejemplos",
-                "Ejemplos",
-                "Ejemplos",
-                "Ejemplos",
-                "Ejemplos"
-        };
 
-        items = new ArrayList<>(Arrays.asList(data));
-        adapter = new ArrayAdapter<>(
+        items = new ArrayList<>();
+        adapter = new CardAdapter(
                 getContext(),
                 R.layout.card_row,
-                R.id.nameCard,
                 items
         );
+
         listaCartas.setAdapter(adapter);
-
-
 
 
         return FragmentView;
@@ -90,6 +81,14 @@ public class MainActivityFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onStart() {
+
+        super.onStart();
+        refresh();
+
+    }
+
     //En este metodo colocaremos la accion que hara el refresh que sera hacer una llamada a la api en segundo plano con el Asynctask.
     private void refresh() {
 
@@ -101,9 +100,23 @@ public class MainActivityFragment extends Fragment {
     private class refreshBackground extends AsyncTask<Void, Void, ArrayList<Cards>> {
         @Override
         protected ArrayList<Cards> doInBackground(Void... voids) {
+//
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+            String color = preferences.getString("color",null);
+            String rareza = preferences.getString("rareza",null);
+//
             LlamadaApi api = new LlamadaApi();
 
-            ArrayList<Cards> result = api.get100Cards();
+            ArrayList<Cards> result = null;
+
+            if(color.equals("color")){
+
+                result = api.getColour(color);
+
+            }
+
+
 
             Log.d("DEBUG", result.toString());
 
@@ -112,9 +125,12 @@ public class MainActivityFragment extends Fragment {
 
         @Override
         protected void onPostExecute(ArrayList<Cards> cartas) {
+
             adapter.clear();
             for (Cards carta : cartas) {
-                adapter.add(carta.getName());
+
+                adapter.add(carta);
+
             }
         }
     }

@@ -19,15 +19,30 @@ public class LlamadaApi {
 
         private final String BASE_URL = "https://api.magicthegathering.io/v1/";
 
-        ArrayList<Cards> get100Cards() {
+        ArrayList<Cards> getRarity(String rareza) {
             Uri builtUri = Uri.parse(BASE_URL)
                     .buildUpon()
                     .appendPath("cards")
+                    .appendQueryParameter("rarity",rareza)
                     .build();
             String url = builtUri.toString();
 
             return llamada(url);
         }
+
+    ArrayList<Cards> getColour(String color) {
+        Uri builtUri = Uri.parse(BASE_URL)
+                .buildUpon()
+                .appendPath("cards")
+                .appendQueryParameter("colors",color)
+                .build();
+        String url = builtUri.toString();
+
+        return llamada(url);
+    }
+
+
+
     @Nullable
     private ArrayList<Cards> llamada(String url) {
         try {
@@ -45,13 +60,17 @@ public class LlamadaApi {
 
         try {
             JSONObject data = new JSONObject(jsonResponse);
-            JSONArray jsonMovies = data.getJSONArray("cards");
+            JSONArray jsonCard = data.getJSONArray("cards");
 
-            for (int i = 0; i < jsonMovies.length(); i++) {
-                JSONObject jsonMovie = jsonMovies.getJSONObject(i);
+            for (int i = 0; i < jsonCard.length(); i++) {
+                JSONObject jsonCards = jsonCard.getJSONObject(i);
 
                 Cards card = new Cards();
-                card.setName(jsonMovie.getString("name"));
+                card.setName(jsonCards.getString("name"));
+                card.setColor(jsonCards.getString("colors"));
+                card.setType(jsonCards.getString("type"));
+                card.setRarity(jsonCards.getString("rarity"));
+                card.setImageUrl(jsonCards.getString("imageUrl"));
                 cartas.add(card);
             }
         } catch (JSONException e) {
