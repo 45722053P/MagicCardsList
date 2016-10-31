@@ -1,5 +1,6 @@
 package com.proyecto.listmagiccards;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -59,7 +60,11 @@ public class MainActivityFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+                //Aqui creamos un objeto carta para saber cual va a ser su posicion en el list view.
+                Cards carta = (Cards)adapterView.getItemAtPosition(i);
 
+                //Creamos el intent para que podamos abrir el details con la carta seleccionada.
+                Intent intent = new Intent(getContext(),DetailsActivity.class);
 
             }
         });
