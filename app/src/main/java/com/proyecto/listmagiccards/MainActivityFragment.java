@@ -13,11 +13,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -104,17 +102,48 @@ public class MainActivityFragment extends Fragment {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
             String color = preferences.getString("color",null);
-            String rareza = preferences.getString("rareza","common");
+            String rareza = preferences.getString("rareza",null);
 
 
             LlamadaApi api = new LlamadaApi();
 
-            ArrayList<Cards> result = null;
+            ArrayList<Cards> result;
 
-            result = api.getRarity(rareza);
+            if(rareza == null && color == null) {
+
+                result = api.getCards();
+
+            } else if(rareza.toLowerCase().equals("basic land")){
+
+                result = api.getRarity(rareza);
+            } else if(rareza.toLowerCase().equals("common")){
+
+                result = api.getRarity(rareza);
+
+            } else if(rareza.toLowerCase().equals("uncommon")){
+
+                result = api.getRarity(rareza);
+
+            } else if(rareza.toLowerCase().equals("rare")){
+
+                result = api.getRarity(rareza);
+
+            } else if(rareza.toLowerCase().equals("mythic rare")){
+
+                result = api.getRarity(rareza);
+
+            } else if(rareza.toLowerCase().equals("special")){
+
+                result = api.getRarity(rareza);
+
+            } else {
+
+                result = api.getColour(color);
+
+            }
 
 
-            Log.d("DEBUG", result.toString());
+            Log.d("DEBUG", result != null ? result.toString() : null);
 
             return result;
         }
