@@ -2,6 +2,7 @@ package com.proyecto.listmagiccards;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -15,7 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
+
+import com.proyecto.listmagiccards.databinding.FragmentMainBinding;
 
 import java.util.ArrayList;
 
@@ -26,7 +28,7 @@ public class MainActivityFragment extends Fragment {
 
     private ArrayList<Cards> items;
     private CardAdapter adapter;
-
+    private View FragmentView;
 
     public MainActivityFragment() {
 
@@ -42,10 +44,9 @@ public class MainActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View FragmentView =  inflater.inflate(R.layout.fragment_main, container, false);
-
-        ListView listaCartas = (ListView) FragmentView.findViewById(R.id.listCads);
-
+        FragmentMainBinding binding = DataBindingUtil.inflate(
+                inflater, R.layout.fragment_main, container, false);
+          FragmentView = binding.getRoot();
 
         items = new ArrayList<>();
         adapter = new CardAdapter(
@@ -54,9 +55,9 @@ public class MainActivityFragment extends Fragment {
                 items
         );
 
-        listaCartas.setAdapter(adapter);
+        binding.listCads.setAdapter(adapter);
 
-        listaCartas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        binding.listCads.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -122,7 +123,7 @@ public class MainActivityFragment extends Fragment {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
             String color = preferences.getString("color",null);
-            String rareza = preferences.getString("rareza",null);
+            String rareza = preferences.getString("rareza","Basic Land");
 
 
             LlamadaApi api = new LlamadaApi();

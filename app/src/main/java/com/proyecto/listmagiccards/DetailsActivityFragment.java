@@ -1,16 +1,16 @@
 package com.proyecto.listmagiccards;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.proyecto.listmagiccards.databinding.FragmentDetailsBinding;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -19,9 +19,7 @@ public class DetailsActivityFragment extends Fragment {
 
     private View detailsFragment;
 
-    private ImageView imageDetails;
-    private TextView nameDetails,typeDetails,colorDetails,rarityDetails,descripcionDetails;
-
+    private FragmentDetailsBinding bindingDetails;
 
 
 
@@ -32,7 +30,13 @@ public class DetailsActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        detailsFragment = inflater.inflate(R.layout.fragment_details, container, false);
+
+        //Ahora lo hacemos con el bindingDetails.
+        bindingDetails = DataBindingUtil.inflate(
+                inflater, R.layout.fragment_main, container, false);
+
+        detailsFragment = bindingDetails.getRoot();
+
 
         Intent i = getActivity().getIntent();
 
@@ -55,23 +59,15 @@ public class DetailsActivityFragment extends Fragment {
 
         Log.d("CARTA",carta.toString());
 
-        //Ahora mismo hacemos los findView para todos los elementos de dicho layout.
+        //Ahora hemos cambiado los find por el bindingDetails, se enlaza directamente con las id del layout sin necesidad de hacer los find.
 
-        imageDetails = (ImageView) detailsFragment.findViewById(R.id.imageCardDetails);
-        nameDetails = (TextView)detailsFragment.findViewById(R.id.nameCardDetail);
-        typeDetails = (TextView)detailsFragment.findViewById(R.id.typeCardDetails);
-        colorDetails = (TextView)detailsFragment.findViewById(R.id.colorCardDetails);
-        rarityDetails = (TextView)detailsFragment.findViewById(R.id.rarityCardDetails);
-        descripcionDetails = (TextView)detailsFragment.findViewById(R.id.descripcionCardDetails);
+        bindingDetails.nameCardDetail.setText("Name: " + carta.getName());
+        bindingDetails.typeCardDetails.setText("Type: " + carta.getType());
+        bindingDetails.colorCardDetails.setText("Color: " + carta.getColor());
+        bindingDetails.rarityCardDetails.setText("Rarity: " + carta.getRarity());
+        bindingDetails.descripcionCardDetails.setText("Descripción: " + carta.getDescripcion());
 
-
-        nameDetails.setText("Name: " + carta.getName());
-        typeDetails.setText("Type: " + carta.getType());
-        colorDetails.setText("Color: " + carta.getColor());
-        rarityDetails.setText("Rarity: " + carta.getRarity());
-        descripcionDetails.setText("Descripción: " + carta.getDescripcion());
-
-        Glide.with(getContext()).load(carta.getImageUrl()).into(imageDetails);
+        Glide.with(getContext()).load(carta.getImageUrl()).into(bindingDetails.imageCardDetails);
 
 
     }
