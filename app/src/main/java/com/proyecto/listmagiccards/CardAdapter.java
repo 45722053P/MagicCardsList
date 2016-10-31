@@ -55,8 +55,8 @@ public class CardAdapter extends ArrayAdapter<Cards>{
         //Colocamos los datos del JSON en los textView.
 
         Glide.with(getContext()).load(card.getImageUrl()).into(imageCard);
-        nombre.setText(card.getName());
-        tipo.setText(card.getType());
+        nombre.setText("Name: " + card.getName());
+        tipo.setText("Type: " + card.getType());
 
 
         return convertView;

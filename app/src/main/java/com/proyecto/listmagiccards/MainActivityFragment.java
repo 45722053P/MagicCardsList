@@ -127,40 +127,43 @@ public class MainActivityFragment extends Fragment {
 
             LlamadaApi api = new LlamadaApi();
 
-            ArrayList<Cards> result;
-
-            if(rareza == null && color == null) {
+            ArrayList<Cards> result = null;
 
                 result = api.getCards();
 
-            } else if(rareza.toLowerCase().equals("basic land")){
 
-                result = api.getRarity(rareza);
-            } else if(rareza.toLowerCase().equals("common")){
-
-                result = api.getRarity(rareza);
-
-            } else if(rareza.toLowerCase().equals("uncommon")){
-
-                result = api.getRarity(rareza);
-
-            } else if(rareza.toLowerCase().equals("rare")){
-
-                result = api.getRarity(rareza);
-
-            } else if(rareza.toLowerCase().equals("mythic rare")){
-
-                result = api.getRarity(rareza);
-
-            } else if(rareza.toLowerCase().equals("special")){
-
-                result = api.getRarity(rareza);
-
-            } else {
-
-                result = api.getColour(color);
-
-            }
+//            if(rareza == null && color == null) {
+//
+//                result = api.getCards();
+//
+//            } else if(rareza.toLowerCase().equals("basic land")){
+//
+//                result = api.getRarity(rareza);
+//            } else if(rareza.toLowerCase().equals("common")){
+//
+//                result = api.getRarity(rareza);
+//
+//            } else if(rareza.toLowerCase().equals("uncommon")){
+//
+//                result = api.getRarity(rareza);
+//
+//            } else if(rareza.toLowerCase().equals("rare")){
+//
+//                result = api.getRarity(rareza);
+//
+//            } else if(rareza.toLowerCase().equals("mythic rare")){
+//
+//                result = api.getRarity(rareza);
+//
+//            } else if(rareza.toLowerCase().equals("special")){
+//
+//                result = api.getRarity(rareza);
+//
+//            } else {
+//
+//                result = api.getColour(color);
+//
+//            }
 
 
             Log.d("DEBUG", result != null ? result.toString() : null);
