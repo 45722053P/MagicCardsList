@@ -1,10 +1,12 @@
 package com.proyecto.listmagiccards;
 
+import java.io.Serializable;
+
 /**
  * Created by alex on 20/10/2016.
  */
 
-public class Cards {
+public class Cards implements Serializable{
     String name;
     String color;
     String type;
