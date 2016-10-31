@@ -1,16 +1,16 @@
 package com.proyecto.listmagiccards;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.proyecto.listmagiccards.databinding.CardRowBinding;
 
 import java.util.List;
 
@@ -20,8 +20,7 @@ import java.util.List;
 
 public class CardAdapter extends ArrayAdapter<Cards>{
 
-    TextView nombre,tipo;
-    ImageView imageCard;
+
 
 
     public CardAdapter(Context context, int resource, List<Cards> objects) {
@@ -36,27 +35,27 @@ public class CardAdapter extends ArrayAdapter<Cards>{
         Cards card = getItem(position);
         Log.w("XXXXXXXXX",card.toString());
 
+        CardRowBinding binding = null;
+
         //Ahora miraremos si esta inflada la view o si la esa reusando.
 
         if(convertView == null){
 
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.card_row,parent,false);
+            binding = DataBindingUtil.inflate(inflater,R.layout.card_row,parent,false);
+
+        }else {
+
+            binding = DataBindingUtil.getBinding(convertView);
 
         }
 
-        //Ahora haremos los enlaces de los componentes de los layouts.
+        //Ahora haremos los enlaces de los componentes de los layouts con el binding.
+        //Colocamos los datos del JSON en los textView con el binding.
 
-        imageCard = (ImageView)convertView.findViewById(R.id.fotoCard);
-        nombre = (TextView)convertView.findViewById(R.id.nameCard);
-        tipo = (TextView)convertView.findViewById(R.id.typeCard);
-
-
-        //Colocamos los datos del JSON en los textView.
-
-        Glide.with(getContext()).load(card.getImageUrl()).into(imageCard);
-        nombre.setText("Name: " + card.getName());
-        tipo.setText("Type: " + card.getType());
+        Glide.with(getContext()).load(card.getImageUrl()).into(binding.fotoCard);
+        binding.nameCard.setText("Name: " + card.getName());
+        binding.typeCard.setText("Type: " + card.getType());
 
 
         return convertView;
