@@ -66,6 +66,11 @@ public class MainActivityFragment extends Fragment {
                 //Creamos el intent para que podamos abrir el details con la carta seleccionada.
                 Intent intent = new Intent(getContext(),DetailsActivity.class);
 
+                intent.putExtra("carta",carta);
+
+                startActivity(intent);
+
+
             }
         });
 
