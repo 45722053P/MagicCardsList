@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -53,6 +54,15 @@ public class MainActivityFragment extends Fragment {
         );
 
         listaCartas.setAdapter(adapter);
+
+        listaCartas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+
+            }
+        });
 
 
         return FragmentView;
