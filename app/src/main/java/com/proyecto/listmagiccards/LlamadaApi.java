@@ -86,6 +86,7 @@ public class LlamadaApi {
                 card.setType(jsonCards.getString("type"));
                 card.setRarity(jsonCards.getString("rarity"));
                 card.setImageUrl(jsonCards.getString("imageUrl"));
+                card.setDescripcion(jsonCards.getString("flavor"));
                 cartas.add(card);
             }
         } catch (JSONException e) {
