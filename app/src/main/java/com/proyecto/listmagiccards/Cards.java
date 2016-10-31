@@ -12,6 +12,7 @@ public class Cards implements Serializable{
     String type;
     String rarity;
     String imageUrl;
+    String descripcion;
 
     public String getName() {
         return name;
@@ -53,6 +54,14 @@ public class Cards implements Serializable{
         this.imageUrl = imageUrl;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     @Override
     public String toString() {
         return "Cards{" +
@@ -61,6 +70,7 @@ public class Cards implements Serializable{
                 ", type='" + type + '\'' +
                 ", rarity='" + rarity + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
+                ", descripcion='" + descripcion + '\'' +
                 '}';
     }
 }
