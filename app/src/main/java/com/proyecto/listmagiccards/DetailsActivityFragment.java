@@ -33,7 +33,7 @@ public class DetailsActivityFragment extends Fragment {
 
         //Ahora lo hacemos con el bindingDetails.
         bindingDetails = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_main, container, false);
+                inflater, R.layout.fragment_details, container, false);
 
         detailsFragment = bindingDetails.getRoot();
 

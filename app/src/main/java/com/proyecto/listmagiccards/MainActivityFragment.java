@@ -46,7 +46,8 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         FragmentMainBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_main, container, false);
-          FragmentView = binding.getRoot();
+
+        FragmentView = binding.getRoot();
 
         items = new ArrayList<>();
         adapter = new CardAdapter(
@@ -123,48 +124,46 @@ public class MainActivityFragment extends Fragment {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
             String color = preferences.getString("color",null);
-            String rareza = preferences.getString("rareza","Basic Land");
+            String rareza = preferences.getString("rareza",null);
 
 
             LlamadaApi api = new LlamadaApi();
 
-            ArrayList<Cards> result = null;
+            ArrayList<Cards> result;
+
+            if(rareza.equals("") && color.equals("")) {
 
                 result = api.getCards();
 
+            } else if(rareza.toLowerCase().equals("basic land")){
 
-//            if(rareza == null && color == null) {
-//
-//                result = api.getCards();
-//
-//            } else if(rareza.toLowerCase().equals("basic land")){
-//
-//                result = api.getRarity(rareza);
-//            } else if(rareza.toLowerCase().equals("common")){
-//
-//                result = api.getRarity(rareza);
-//
-//            } else if(rareza.toLowerCase().equals("uncommon")){
-//
-//                result = api.getRarity(rareza);
-//
-//            } else if(rareza.toLowerCase().equals("rare")){
-//
-//                result = api.getRarity(rareza);
-//
-//            } else if(rareza.toLowerCase().equals("mythic rare")){
-//
-//                result = api.getRarity(rareza);
-//
-//            } else if(rareza.toLowerCase().equals("special")){
-//
-//                result = api.getRarity(rareza);
-//
-//            } else {
-//
-//                result = api.getColour(color);
-//
-//            }
+                result = api.getRarity(rareza);
+
+            } else if(rareza.toLowerCase().equals("common")){
+
+                result = api.getRarity(rareza);
+
+            } else if(rareza.toLowerCase().equals("uncommon")){
+
+                result = api.getRarity(rareza);
+
+            } else if(rareza.toLowerCase().equals("rare")){
+
+                result = api.getRarity(rareza);
+
+            } else if(rareza.toLowerCase().equals("mythic rare")){
+
+                result = api.getRarity(rareza);
+
+            } else if(rareza.toLowerCase().equals("special")){
+
+                result = api.getRarity(rareza);
+
+            } else {
+
+                result = api.getColour(color);
+
+            }
 
 
             Log.d("DEBUG", result != null ? result.toString() : null);

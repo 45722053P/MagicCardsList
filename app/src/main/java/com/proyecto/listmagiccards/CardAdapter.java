@@ -58,6 +58,6 @@ public class CardAdapter extends ArrayAdapter<Cards>{
         binding.typeCard.setText("Type: " + card.getType());
 
 
-        return convertView;
+        return binding.getRoot();
     }
 }

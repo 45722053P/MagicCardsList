@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class LlamadaApi {
 
 
-        private final String BASE_URL = "https://api.magicthegathering.io/v1/";
+        private final String BASE_URL = "https://api.magicthegathering.io/v1";
 
         ArrayList<Cards> getRarity(String rareza) {
             Uri builtUri = Uri.parse(BASE_URL)
@@ -70,23 +70,38 @@ public class LlamadaApi {
 
         try {
             JSONObject data = new JSONObject(jsonResponse);
-            JSONArray jsonCard = data.getJSONArray("cards");
+            JSONArray jsonCartas = data.getJSONArray("cards");
 
-            for (int i = 0; i < jsonCard.length(); i++) {
-                JSONObject jsonCards = jsonCard.getJSONObject(i);
+            for (int i = 0; i < jsonCartas.length(); i++) {
+                JSONObject jsonCarta = jsonCartas.getJSONObject(i);
 
                 Cards card = new Cards();
-                card.setName(jsonCards.getString("name"));
+                card.setName(jsonCarta.getString("name"));
 
-                if(jsonCards.getString("colors").equals("")) {
-                    card.setColor("");
+                if(jsonCarta.has("colors")) {
+
+                    card.setColor(jsonCarta.getString("colors"));
+
+                }else {
+
+                    card.setColor("Sin Color");
+
+
                 }
 
-                card.setColor(jsonCards.getString("colors"));
-                card.setType(jsonCards.getString("type"));
-                card.setRarity(jsonCards.getString("rarity"));
-                card.setImageUrl(jsonCards.getString("imageUrl"));
-                card.setDescripcion(jsonCards.getString("flavor"));
+                card.setType(jsonCarta.getString("type"));
+                card.setRarity(jsonCarta.getString("rarity"));
+                card.setImageUrl(jsonCarta.getString("imageUrl"));
+
+                if(jsonCarta.has("flavor")) {
+                    card.setDescripcion(jsonCarta.getString("flavor"));
+                }else{
+                    card.setDescripcion("Sin Descripcion");
+                }
+
+
+
+
                 cartas.add(card);
             }
         } catch (JSONException e) {
