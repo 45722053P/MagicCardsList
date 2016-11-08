@@ -177,7 +177,7 @@ public class MainActivityFragment extends Fragment {
             DataBaseManage.guardarCartas(result,getContext());
 
 
-            
+
             return null;
         }
     }
