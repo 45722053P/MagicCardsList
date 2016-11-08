@@ -37,6 +37,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.proyecto.listmagiccards.MainActivity" />
         </activity>
+
+        <provider
+           android:name=".CardContentProvider"
+           android:authorities="${applicationId}.provider"
+           android:exported="false" />
+
+
     </application>
 
 </manifest>
