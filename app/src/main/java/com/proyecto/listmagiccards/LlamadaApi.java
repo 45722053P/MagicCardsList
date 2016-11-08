@@ -86,7 +86,6 @@ public class LlamadaApi {
 
                     card.setColor("Sin Color");
 
-
                 }
 
                 card.setType(jsonCarta.getString("type"));

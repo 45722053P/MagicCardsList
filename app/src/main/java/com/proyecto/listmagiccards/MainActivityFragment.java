@@ -3,6 +3,7 @@ package com.proyecto.listmagiccards;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -20,6 +21,10 @@ import android.widget.AdapterView;
 import com.proyecto.listmagiccards.databinding.FragmentMainBinding;
 
 import java.util.ArrayList;
+
+import nl.littlerobots.cupboard.tools.provider.UriHelper;
+
+import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -117,17 +122,15 @@ public class MainActivityFragment extends Fragment {
 
     }
 
-    private class refreshBackground extends AsyncTask<Void, Void, ArrayList<Cards>> {
+    private class refreshBackground extends AsyncTask<Void, Void, Void> {
         @Override
-        protected ArrayList<Cards> doInBackground(Void... voids) {
+        protected Void doInBackground(Void... voids) {
 
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
             String color = preferences.getString("color",null);
             String rareza = preferences.getString("rareza",null);
 
-
-//            LlamadaApi api = new LlamadaApi();
 
             ArrayList<Cards> result;
 
@@ -168,18 +171,13 @@ public class MainActivityFragment extends Fragment {
 
             Log.d("DEBUG", result != null ? result.toString() : null);
 
-            return result;
-        }
 
-        @Override
-        protected void onPostExecute(ArrayList<Cards> cartas) {
+            UriHelper uriHelper = UriHelper.with(CardContentProvider.AUTHORITY);
+            Uri uriCard = uriHelper.getUri(Cards.class);
+            cupboard().withContext(getContext()).put(uriCard,Cards.class,result);
 
-            adapter.clear();
-            for (Cards carta : cartas) {
 
-                adapter.add(carta);
-
-            }
+            return null;
         }
     }
 }
