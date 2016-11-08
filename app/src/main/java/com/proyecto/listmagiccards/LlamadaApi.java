@@ -17,9 +17,9 @@ import java.util.ArrayList;
 public class LlamadaApi {
 
 
-        private final String BASE_URL = "https://api.magicthegathering.io/v1";
+        private static String BASE_URL = "https://api.magicthegathering.io/v1";
 
-        ArrayList<Cards> getRarity(String rareza) {
+        static ArrayList<Cards> getRarity(String rareza) {
             Uri builtUri = Uri.parse(BASE_URL)
                     .buildUpon()
                     .appendPath("cards")
@@ -30,7 +30,7 @@ public class LlamadaApi {
             return llamada(url);
         }
 
-    ArrayList<Cards> getColour(String color) {
+    static ArrayList<Cards> getColour(String color) {
         Uri builtUri = Uri.parse(BASE_URL)
                 .buildUpon()
                 .appendPath("cards")
@@ -41,7 +41,7 @@ public class LlamadaApi {
         return llamada(url);
     }
 
-    ArrayList<Cards> getCards() {
+    static ArrayList<Cards> getCards() {
         Uri builtUri = Uri.parse(BASE_URL)
                 .buildUpon()
                 .appendPath("cards")
@@ -54,7 +54,7 @@ public class LlamadaApi {
 
 
     @Nullable
-    private ArrayList<Cards> llamada(String url) {
+    private static ArrayList<Cards> llamada(String url) {
         try {
             String JsonResponse = HttpUtils.get(url);
             return procesaJson(JsonResponse);
@@ -65,7 +65,7 @@ public class LlamadaApi {
     }
 
 
-    private ArrayList<Cards> procesaJson(String jsonResponse) {
+    private static ArrayList<Cards> procesaJson(String jsonResponse) {
         ArrayList<Cards> cartas = new ArrayList<>();
 
         try {
