@@ -35,8 +35,8 @@
         <item>Basic Land</item>
         <item>Common</item>
         <item>Uncommon</item>
-        <item>-Rare</item>
-        <item>-Mythic Rare</item>
+        <item>Rare</item>
+        <item>Mythic Rare</item>
         <item>Special</item>
     </string-array>
 
