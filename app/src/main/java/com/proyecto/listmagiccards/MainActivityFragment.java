@@ -171,9 +171,13 @@ public class MainActivityFragment extends Fragment {
 
             Log.d("DEBUG", result != null ? result.toString() : null);
 
+
+            DataBaseManage.borrarCartas(getContext());
+
             DataBaseManage.guardarCartas(result,getContext());
 
 
+            
             return null;
         }
     }

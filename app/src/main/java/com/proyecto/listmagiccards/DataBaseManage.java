@@ -19,13 +19,19 @@ public class DataBaseManage {
 
     private static Uri CARD_URI = URI_HELPER.getUri(Cards.class);
 
+
+
     static void guardarCartas (ArrayList<Cards> cartas, Context context){
 
         cupboard().withContext(context).put(CARD_URI,Cards.class,cartas);
 
     }
 
+    static void borrarCartas (Context context){
 
+        cupboard().withContext(context).delete(CARD_URI,"_id > ?","1");
+
+    }
 
 
 }
