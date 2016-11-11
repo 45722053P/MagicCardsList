@@ -110,7 +110,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     }
 
     @Override
-    public void onStart() {
+    public void onStart(){
 
         super.onStart();
 
@@ -119,8 +119,8 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     //En este metodo colocaremos la accion que hara el refresh que sera hacer una llamada a la api en segundo plano con el Asynctask.
     private void refresh() {
 
-        refreshBackground refresh = new refreshBackground();
-        refresh.execute();
+        refreshBackground refreshbackground = new refreshBackground();
+        refreshbackground.execute();
 
     }
 

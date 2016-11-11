@@ -27,6 +27,9 @@ public class DetailsActivityFragment extends Fragment {
     public DetailsActivityFragment() {
     }
 
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
