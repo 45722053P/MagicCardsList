@@ -30,7 +30,7 @@ public class DataBaseManage {
 
     static void borrarCartas (Context context){
 
-        cupboard().withContext(context).delete(CARD_URI, "_id > ?", "0");
+        cupboard().withContext(context).delete(CARD_URI, "_id > ?", "1");
     }
 
     static CursorLoader getCursorLoader(Context context) {

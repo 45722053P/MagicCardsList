@@ -21,14 +21,8 @@ public class DetailsActivityFragment extends Fragment {
 
     private FragmentDetailsBinding bindingDetails;
 
-
-
-
     public DetailsActivityFragment() {
     }
-
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,7 +45,6 @@ public class DetailsActivityFragment extends Fragment {
                 updateUi(carta);
 
             }
-
         }
 
         return detailsFragment;
