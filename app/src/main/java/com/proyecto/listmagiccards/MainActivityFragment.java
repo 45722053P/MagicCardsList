@@ -1,5 +1,6 @@
 package com.proyecto.listmagiccards;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -31,7 +32,7 @@ import static com.proyecto.listmagiccards.DataBaseManage.*;
  */
 public class MainActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-
+    private ProgressDialog loading;
     private CardsCursorAdapter adapter;
     private View FragmentView;
 
@@ -55,6 +56,11 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
         FragmentView = binding.getRoot();
 
         adapter = new CardsCursorAdapter(getContext(),Cards.class);
+
+        //Este progressDialog es para que muestre un mensaje mientras carga las cartas de la api, es decir las descarga.
+        loading = new ProgressDialog(getContext());
+        loading.setMessage("Cargando Cartas....");
+
 
         binding.listCads.setAdapter(adapter);
 
@@ -107,7 +113,6 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     public void onStart() {
 
         super.onStart();
-        refresh();
 
     }
 
@@ -142,6 +147,16 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
 
     private class refreshBackground extends AsyncTask<Void, Void, Void> {
+
+        //Este metodo se ejecutara antes como su nombre indica preExecute,y muestra el Dialog con nuestro mensaje anteriormente puesto.
+        @Override
+        protected void onPreExecute() {
+
+            super.onPreExecute();
+            loading.show();
+
+        }
+
         @Override
         protected Void doInBackground(Void... voids) {
 
@@ -195,9 +210,16 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
             guardarCartas(result,getContext());
 
-
-
             return null;
+        }
+
+        //En este otro metodo es lo contrario una vez hecho el Dialog se va.
+        @Override
+        protected void onPostExecute(Void aVoid) {
+
+            super.onPostExecute(aVoid);
+            loading.dismiss();
+
         }
     }
 }
