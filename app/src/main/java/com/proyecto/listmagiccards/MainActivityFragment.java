@@ -21,18 +21,13 @@ import com.proyecto.listmagiccards.databinding.FragmentMainBinding;
 
 import java.util.ArrayList;
 
-
-
-
-
-
 /**
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragment extends Fragment {
 
     private ArrayList<Cards> items;
-    private CardAdapter adapter;
+    private CardsCursorAdapter adapter;
     private View FragmentView;
 
     public MainActivityFragment() {
@@ -55,11 +50,8 @@ public class MainActivityFragment extends Fragment {
         FragmentView = binding.getRoot();
 
         items = new ArrayList<>();
-        adapter = new CardAdapter(
-                getContext(),
-                R.layout.card_row,
-                items
-        );
+
+        adapter = new CardsCursorAdapter(getContext(),Cards.class);
 
         binding.listCads.setAdapter(adapter);
 
