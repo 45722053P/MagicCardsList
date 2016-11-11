@@ -2,17 +2,13 @@ package com.proyecto.listmagiccards;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,11 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
+import com.alexvasilkov.events.Events;
 import com.proyecto.listmagiccards.databinding.FragmentMainBinding;
 
-import java.util.ArrayList;
-
-import static com.proyecto.listmagiccards.DataBaseManage.*;
+import static com.proyecto.listmagiccards.DataBaseManage.getCursorLoader;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -87,6 +82,17 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
         return FragmentView;
     }
+
+    @Events.Subscribe("Empieza la descarga")
+    void preRefresh() {
+        loading.show();
+    }
+
+    @Events.Subscribe("Fin de la descarga")
+    void afterRefresh() {
+        loading.dismiss();
+    }
+
     //Estos metodos son para las opciones del menu del fragment.
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -113,13 +119,13 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     public void onStart(){
 
         super.onStart();
-
+        Events.register(this);
     }
 
     //En este metodo colocaremos la accion que hara el refresh que sera hacer una llamada a la api en segundo plano con el Asynctask.
     private void refresh() {
 
-        refreshBackground refreshbackground = new refreshBackground();
+        RefreshBackground refreshbackground = new RefreshBackground(getActivity().getApplicationContext());
         refreshbackground.execute();
 
     }
@@ -145,81 +151,4 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
     }
 
-
-    private class refreshBackground extends AsyncTask<Void, Void, Void> {
-
-        //Este metodo se ejecutara antes como su nombre indica preExecute,y muestra el Dialog con nuestro mensaje anteriormente puesto.
-        @Override
-        protected void onPreExecute() {
-
-            super.onPreExecute();
-            loading.show();
-
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-
-            String color = preferences.getString("color",null);
-            String rareza = preferences.getString("rareza",null);
-
-
-            ArrayList<Cards> result;
-
-            if(rareza.equals("") && color.equals("")) {
-
-                result = LlamadaApi.getCards();
-
-            } else if(rareza.toLowerCase().equals("basic land")){
-
-                result = LlamadaApi.getRarity(rareza);
-
-            } else if(rareza.toLowerCase().equals("common")){
-
-                result = LlamadaApi.getRarity(rareza);
-
-            } else if(rareza.toLowerCase().equals("uncommon")){
-
-                result = LlamadaApi.getRarity(rareza);
-
-            } else if(rareza.toLowerCase().equals("rare")){
-
-                result = LlamadaApi.getRarity(rareza);
-
-            } else if(rareza.toLowerCase().equals("mythic rare")){
-
-                result = LlamadaApi.getRarity(rareza);
-
-            } else if(rareza.toLowerCase().equals("special")){
-
-                result = LlamadaApi.getRarity(rareza);
-
-            } else {
-
-                result = LlamadaApi.getColour(color);
-
-            }
-
-
-            Log.d("DEBUG", result != null ? result.toString() : null);
-
-
-            borrarCartas(getContext());
-
-            guardarCartas(result,getContext());
-
-            return null;
-        }
-
-        //En este otro metodo es lo contrario una vez hecho el Dialog se va.
-        @Override
-        protected void onPostExecute(Void aVoid) {
-
-            super.onPostExecute(aVoid);
-            loading.dismiss();
-
-        }
-    }
 }
