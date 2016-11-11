@@ -2,12 +2,15 @@ package com.proyecto.listmagiccards;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,12 +24,14 @@ import com.proyecto.listmagiccards.databinding.FragmentMainBinding;
 
 import java.util.ArrayList;
 
+import static com.proyecto.listmagiccards.DataBaseManage.*;
+
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment {
+public class MainActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private ArrayList<Cards> items;
+
     private CardsCursorAdapter adapter;
     private View FragmentView;
 
@@ -48,8 +53,6 @@ public class MainActivityFragment extends Fragment {
                 inflater, R.layout.fragment_main, container, false);
 
         FragmentView = binding.getRoot();
-
-        items = new ArrayList<>();
 
         adapter = new CardsCursorAdapter(getContext(),Cards.class);
 
@@ -73,6 +76,8 @@ public class MainActivityFragment extends Fragment {
             }
         });
 
+
+        getLoaderManager().initLoader(0,null,this);
 
         return FragmentView;
     }
@@ -113,6 +118,28 @@ public class MainActivityFragment extends Fragment {
         refresh.execute();
 
     }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+
+        return getCursorLoader(getContext());
+
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
+        adapter.swapCursor(data);
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
+        adapter.swapCursor(null);
+
+    }
+
 
     private class refreshBackground extends AsyncTask<Void, Void, Void> {
         @Override
@@ -164,9 +191,9 @@ public class MainActivityFragment extends Fragment {
             Log.d("DEBUG", result != null ? result.toString() : null);
 
 
-            DataBaseManage.borrarCartas(getContext());
+            borrarCartas(getContext());
 
-            DataBaseManage.guardarCartas(result,getContext());
+            guardarCartas(result,getContext());
 
 
 
