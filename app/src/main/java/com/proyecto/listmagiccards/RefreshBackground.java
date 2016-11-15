@@ -27,8 +27,6 @@ public class RefreshBackground extends AsyncTask<Void,Void,Void> {
 
     }
 
-
-
     //Este metodo se ejecutara antes como su nombre indica preExecute,y muestra el Dialog con nuestro mensaje anteriormente puesto.
     @Override
     protected void onPreExecute() {
@@ -43,8 +41,8 @@ public class RefreshBackground extends AsyncTask<Void,Void,Void> {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
-        String color = preferences.getString("color",null);
-        String rareza = preferences.getString("rareza",null);
+        String color = preferences.getString("color","");
+        String rareza = preferences.getString("rareza","");
 
 
         ArrayList<Cards> result;

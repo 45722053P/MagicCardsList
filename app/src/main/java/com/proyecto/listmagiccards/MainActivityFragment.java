@@ -120,6 +120,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
         super.onStart();
         Events.register(this);
+        refresh();
     }
 
     //En este metodo colocaremos la accion que hara el refresh que sera hacer una llamada a la api en segundo plano con el Asynctask.
